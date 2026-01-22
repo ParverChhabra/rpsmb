@@ -62,9 +62,9 @@ export const Navbar = () => {
               </li>
             ))}
             <li>
-              <a href="#notices" className="btn-premium text-sm">
+              <NavLink to="/admissions" className="btn-premium text-sm px-6 py-2">
                 Admissions
-              </a>
+              </NavLink>
             </li>
           </ul>
 
@@ -94,9 +94,9 @@ export const Navbar = () => {
                 </li>
               ))}
               <li className="px-6 py-3">
-                <a href="#notices" className="btn-premium inline-block text-sm">
+                <NavLink to="/admissions" className="btn-premium inline-block text-sm px-6 py-2" onClick={() => setIsMobileMenuOpen(false)}>
                   Admissions
-                </a>
+                </NavLink>
               </li>
             </ul>
           </div>

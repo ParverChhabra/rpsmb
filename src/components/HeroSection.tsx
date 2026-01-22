@@ -80,7 +80,7 @@ export const HeroSection = () => {
               Discover Our Legacy
             </a>
             <a
-              href="#notices"
+              href="/admissions"
               className="px-8 py-3 rounded border-2 border-cream/30 text-cream hover:bg-cream/10 transition-all duration-300 font-medium"
             >
               Apply for Admission

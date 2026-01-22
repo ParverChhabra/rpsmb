@@ -3,7 +3,7 @@ import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 const quickLinks = [
   { label: 'About Us', href: '#about' },
   { label: 'Academics', href: '#philosophy' },
-  { label: 'Admissions', href: '#notices' },
+  { label: 'Admissions', href: '/admissions' },
   { label: 'Notice Board', href: '#notices' },
   { label: 'Contact Us', href: '#footer' },
 ];
