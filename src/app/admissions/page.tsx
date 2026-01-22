@@ -44,9 +44,15 @@ export default function AdmissionsPage() {
                   name="admissions" 
                   method="POST" 
                   data-netlify="true" 
+                  data-netlify-honeypot="bot-field"
                   className="space-y-6"
                 >
                   <input type="hidden" name="form-name" value="admissions" />
+                  <p className="hidden">
+                    <label>
+                      Don’t fill this out if you’re human: <input name="bot-field" />
+                    </label>
+                  </p>
                   
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
