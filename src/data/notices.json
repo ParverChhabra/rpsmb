@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "Annual Day Celebration 2024",
+    "content": "We are delighted to invite all parents and guardians to the Annual Day Celebration on 15th March 2024 at the school auditorium. The event will showcase student performances and achievements.",
+    "date": "2024-03-01",
+    "pinned": true,
+    "category": "Event"
+  },
+  {
+    "id": 2,
+    "title": "Admission Open for 2024-25",
+    "content": "Applications are now being accepted for admission to Classes Nursery to IX for the academic year 2024-25. Visit the admission office or download forms from our website.",
+    "date": "2024-02-15",
+    "pinned": true,
+    "category": "Admission"
+  },
+  {
+    "id": 3,
+    "title": "Parent-Teacher Meeting Schedule",
+    "content": "Parent-Teacher meetings for all classes will be held on 20th February 2024. Parents are requested to collect their ward's progress report and discuss academic performance.",
+    "date": "2024-02-10",
+    "pinned": false,
+    "category": "Academic"
+  },
+  {
+    "id": 4,
+    "title": "Science Exhibition Winners",
+    "content": "Congratulations to all participants of the Inter-School Science Exhibition. Our students secured First Position in the senior category and Second Position in the junior category.",
+    "date": "2024-02-05",
+    "pinned": false,
+    "category": "Achievement"
+  },
+  {
+    "id": 5,
+    "title": "Winter Vacation Notice",
+    "content": "The school will remain closed for winter vacation from 23rd December to 5th January. Regular classes will resume on 6th January 2024.",
+    "date": "2024-01-20",
+    "pinned": false,
+    "category": "Holiday"
+  },
+  {
+    "id": 6,
+    "title": "Sports Day Announcement",
+    "content": "The Annual Sports Day will be held on 28th January 2024. All students are encouraged to participate in various athletic events. Practice sessions begin next week.",
+    "date": "2024-01-15",
+    "pinned": false,
+    "category": "Sports"
+  }
+]

@@ -1,0 +1,203 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+/* Radiant Public School Design System
+   Colors: Navy blue, Gold accents, White backgrounds
+   Typography: Playfair Display (headings), Inter (body)
+   Feel: Calm, Trustworthy, Premium
+*/
+
+@layer base {
+  html {
+      scroll-behavior: smooth;
+    }
+  :root {
+    /* Primary - Deep Navy Blue */
+    --primary: 213 50% 25%;
+    --primary-foreground: 45 60% 97%;
+
+    /* Secondary - Soft Navy */
+    --secondary: 213 30% 95%;
+    --secondary-foreground: 213 50% 20%;
+
+    /* Accent - Royal Gold */
+    --accent: 43 60% 54%;
+    --accent-foreground: 213 50% 15%;
+
+    /* Background & Foreground - Navy dominant */
+    --background: 213 55% 12%;
+    --foreground: 45 60% 95%;
+
+    /* Card - Slightly lighter navy */
+    --card: 213 50% 16%;
+    --card-foreground: 45 60% 95%;
+
+    /* Popover */
+    --popover: 213 50% 14%;
+    --popover-foreground: 45 60% 95%;
+
+    /* Muted - Dark navy */
+    --muted: 213 45% 20%;
+    --muted-foreground: 45 30% 70%;
+
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Border & Input */
+    --border: 213 40% 25%;
+    --input: 213 40% 25%;
+    --ring: 43 60% 54%;
+
+    --radius: 0.5rem;
+
+    /* Custom School Colors */
+    --navy: 213 55% 12%;
+    --navy-light: 213 45% 20%;
+    --navy-dark: 213 60% 8%;
+    --gold: 43 60% 54%;
+    --gold-light: 43 50% 70%;
+    --gold-dark: 43 70% 40%;
+    --cream: 45 60% 95%;
+    --warm-white: 45 40% 92%;
+
+    /* Section alternates */
+    --section-alt: 213 50% 15%;
+
+    /* Sidebar */
+    --sidebar-background: 213 55% 10%;
+    --sidebar-foreground: 45 60% 95%;
+    --sidebar-primary: 43 60% 54%;
+    --sidebar-primary-foreground: 213 55% 12%;
+    --sidebar-accent: 213 45% 18%;
+    --sidebar-accent-foreground: 45 60% 95%;
+    --sidebar-border: 213 40% 20%;
+    --sidebar-ring: 43 60% 54%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  /* Hero overlay gradient */
+  .hero-overlay {
+    background: linear-gradient(
+      to right,
+      hsl(213 60% 8% / 0.9) 0%,
+      hsl(213 55% 12% / 0.75) 50%,
+      hsl(213 55% 12% / 0.6) 100%
+    );
+  }
+
+  /* Gold texture pattern overlay */
+  .gold-texture {
+    position: relative;
+  }
+
+  .gold-texture::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 20% 30%, hsl(43 60% 54% / 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, hsl(43 60% 54% / 0.06) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, hsl(43 60% 54% / 0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* Subtle gold line pattern */
+  .gold-lines {
+    background-image: 
+      linear-gradient(135deg, hsl(43 60% 54% / 0.03) 25%, transparent 25%),
+      linear-gradient(225deg, hsl(43 60% 54% / 0.03) 25%, transparent 25%);
+    background-size: 60px 60px;
+  }
+
+  /* Gold accent underline for headings */
+  .heading-accent {
+    @apply relative inline-block;
+  }
+
+  .heading-accent::after {
+    content: '';
+    @apply absolute left-0 -bottom-2 w-16 h-1 bg-accent;
+  }
+
+  /* Section fade-in animation */
+  .fade-in-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .fade-in-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Notice card hover effect */
+  .notice-card {
+    @apply transition-shadow duration-300;
+  }
+
+  .notice-card:hover {
+    box-shadow: 0 8px 30px hsl(var(--navy) / 0.1);
+  }
+
+  /* Navbar link styling */
+  .nav-link {
+    @apply relative text-cream/80 hover:text-cream transition-colors duration-200;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute left-0 -bottom-1 w-0 h-0.5 bg-accent transition-all duration-300;
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  /* Stat counter styling */
+  .stat-number {
+    @apply font-serif text-5xl md:text-6xl font-bold;
+    background: linear-gradient(135deg, hsl(var(--gold)) 0%, hsl(var(--gold-dark)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Premium button styling */
+  .btn-premium {
+    @apply bg-accent text-accent-foreground font-medium px-8 py-3 rounded transition-all duration-300;
+    box-shadow: 0 4px 15px hsl(var(--gold) / 0.3);
+  }
+
+  .btn-premium:hover {
+    box-shadow: 0 6px 20px hsl(var(--gold) / 0.4);
+    transform: translateY(-2px);
+  }
+
+  /* Pinned notice badge */
+  .pinned-badge {
+    @apply bg-accent/10 text-accent-foreground border border-accent/30 px-3 py-1 text-xs font-medium rounded-full;
+  }
+}
