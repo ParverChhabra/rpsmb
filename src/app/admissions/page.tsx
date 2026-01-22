@@ -9,8 +9,44 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { motion } from 'framer-motion';
+import { toast } from 'sonner';
+import { useState } from 'react';
 
 export default function AdmissionsPage() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.currentTarget);
+    const data = new URLSearchParams();
+    
+    // @ts-ignore
+    for (const [key, value] of formData.entries()) {
+      data.append(key, value.toString());
+    }
+
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: data.toString(),
+      });
+
+      if (response.ok) {
+        toast.success("Enquiry submitted successfully! We'll contact you soon.");
+        (e.target as HTMLFormElement).reset();
+      } else {
+        throw new Error("Form submission failed");
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again or call us directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Navbar />
@@ -41,10 +77,8 @@ export default function AdmissionsPage() {
               </CardHeader>
               <CardContent className="pt-8">
                 <form 
+                  onSubmit={handleSubmit}
                   name="admissions" 
-                  method="POST" 
-                  data-netlify="true" 
-                  data-netlify-honeypot="bot-field"
                   className="space-y-6"
                 >
                   <input type="hidden" name="form-name" value="admissions" />
@@ -141,9 +175,10 @@ export default function AdmissionsPage() {
 
                   <Button 
                     type="submit" 
+                    disabled={isSubmitting}
                     className="w-full btn-premium bg-accent text-accent-foreground hover:bg-accent/90 py-6 text-lg font-serif"
                   >
-                    Submit Enquiry
+                    {isSubmitting ? "Submitting..." : "Submit Enquiry"}
                   </Button>
                 </form>
               </CardContent>
