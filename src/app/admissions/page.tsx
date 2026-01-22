@@ -5,7 +5,6 @@ import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { motion } from 'framer-motion';
@@ -15,6 +14,9 @@ import { useState } from 'react';
 export default function AdmissionsPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Google Form submission URL
+  const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfvZ_a8GCa7acEshj-uQYooaVfwONsOweb4SDet0vjNtWJ-qw/formResponse";
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -22,24 +24,36 @@ export default function AdmissionsPage() {
     const formData = new FormData(e.currentTarget);
     const data = new URLSearchParams();
     
+    // Mapping our form field names to Google Form entry IDs
+    const mapping: Record<string, string> = {
+      "studentName": "entry.1895029957",
+      "parentName": "entry.112081119",
+      "phone": "entry.1828955601",
+      "grade": "entry.772570165"
+    };
+
+    // Construct the submission data
+    // Use the mapped entry ID if it exists, otherwise use the original key
     // @ts-ignore
     for (const [key, value] of formData.entries()) {
-      data.append(key, value.toString());
+      const entryId = mapping[key] || key;
+      data.append(entryId, value.toString());
     }
 
     try {
-      const response = await fetch("/", {
+      // Use 'no-cors' mode as Google Forms doesn't support CORS for direct submissions.
+      // This will succeed but won't let us read the response, which is fine.
+      await fetch(GOOGLE_FORM_URL, {
         method: "POST",
+        mode: "no-cors",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: data.toString(),
       });
 
-      if (response.ok) {
-        toast.success("Enquiry submitted successfully! We'll contact you soon.");
-        (e.target as HTMLFormElement).reset();
-      } else {
-        throw new Error("Form submission failed");
-      }
+      // Since we use 'no-cors', we can't reliably check response.ok, 
+      // but if the fetch doesn't throw, it's generally successful.
+      toast.success("Enquiry submitted successfully! We'll contact you soon.");
+      (e.target as HTMLFormElement).reset();
     } catch (error) {
       toast.error("Something went wrong. Please try again or call us directly.");
     } finally {
@@ -72,22 +86,14 @@ export default function AdmissionsPage() {
               <CardHeader className="space-y-2 text-center pb-8 border-b border-white/5">
                 <CardTitle className="text-2xl font-serif text-cream">Application Form</CardTitle>
                 <CardDescription className="text-cream/60">
-                  Please provide accurate details. Our admissions team will contact you shortly.
+                  Please provide accurate details. Our admissions team will contact you shortly from your Google Form responses.
                 </CardDescription>
               </CardHeader>
               <CardContent className="pt-8">
                 <form 
                   onSubmit={handleSubmit}
-                  name="admissions" 
                   className="space-y-6"
                 >
-                  <input type="hidden" name="form-name" value="admissions" />
-                  <p className="hidden">
-                    <label>
-                      Don’t fill this out if you’re human: <input name="bot-field" />
-                    </label>
-                  </p>
-                  
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="studentName" className="text-cream/90">Student's Name</Label>
@@ -107,20 +113,20 @@ export default function AdmissionsPage() {
                           <SelectValue placeholder="Select Grade" />
                         </SelectTrigger>
                         <SelectContent className="bg-card border-gold/20 text-cream">
-                          <SelectItem value="nursery">Nursery</SelectItem>
-                          <SelectItem value="kg">Kindergarten (KG)</SelectItem>
-                          <SelectItem value="class1">Class 1</SelectItem>
-                          <SelectItem value="class2">Class 2</SelectItem>
-                          <SelectItem value="class3">Class 3</SelectItem>
-                          <SelectItem value="class4">Class 4</SelectItem>
-                          <SelectItem value="class5">Class 5</SelectItem>
-                          <SelectItem value="class6">Class 6</SelectItem>
-                          <SelectItem value="class7">Class 7</SelectItem>
-                          <SelectItem value="class8">Class 8</SelectItem>
-                          <SelectItem value="class9">Class 9</SelectItem>
-                          <SelectItem value="class10">Class 10</SelectItem>
-                          <SelectItem value="class11">Class 11</SelectItem>
-                          <SelectItem value="class12">Class 12</SelectItem>
+                          <SelectItem value="Nursery">Nursery</SelectItem>
+                          <SelectItem value="KG">Kindergarten (KG)</SelectItem>
+                          <SelectItem value="Class 1">Class 1</SelectItem>
+                          <SelectItem value="Class 2">Class 2</SelectItem>
+                          <SelectItem value="Class 3">Class 3</SelectItem>
+                          <SelectItem value="Class 4">Class 4</SelectItem>
+                          <SelectItem value="Class 5">Class 5</SelectItem>
+                          <SelectItem value="Class 6">Class 6</SelectItem>
+                          <SelectItem value="Class 7">Class 7</SelectItem>
+                          <SelectItem value="Class 8">Class 8</SelectItem>
+                          <SelectItem value="Class 9">Class 9</SelectItem>
+                          <SelectItem value="Class 10">Class 10</SelectItem>
+                          <SelectItem value="Class 11">Class 11</SelectItem>
+                          <SelectItem value="Class 12">Class 12</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -149,28 +155,6 @@ export default function AdmissionsPage() {
                         className="bg-background/50 border-white/10 text-cream placeholder:text-white/20 focus:border-gold/50"
                       />
                     </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="text-cream/90">Email Address</Label>
-                    <Input 
-                      id="email" 
-                      name="email" 
-                      type="email" 
-                      required 
-                      placeholder="name@example.com" 
-                      className="bg-background/50 border-white/10 text-cream placeholder:text-white/20 focus:border-gold/50"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="message" className="text-cream/90">Additional Message (Optional)</Label>
-                    <Textarea 
-                      id="message" 
-                      name="message" 
-                      placeholder="Any specific queries or requirements..." 
-                      className="min-h-[120px] bg-background/50 border-white/10 text-cream placeholder:text-white/20 focus:border-gold/50 resize-none"
-                    />
                   </div>
 
                   <Button 
