@@ -65,26 +65,37 @@ export const LanguageToggle = () => {
     const newLang = currentLang === 'en' ? 'pa' : 'en';
 
     // Set language using Google Translate's cookie method
-    const domain = window.location.hostname;
     const cookieValue = newLang === 'en' ? '/en/en' : '/en/pa';
 
-    // Set cookie for current domain and all subdomains
-    document.cookie = `googtrans=${cookieValue}; path=/; domain=${domain}`;
-    document.cookie = `googtrans=${cookieValue}; path=/`;
+    // Clear existing cookies first
+    document.cookie = 'googtrans=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC';
 
-    // Also try to trigger via select element if available
+    // Set cookie without domain restrictions to work on all devices
+    const isSecure = window.location.protocol === 'https:';
+    const securePart = isSecure ? '; Secure' : '';
+    document.cookie = `googtrans=${cookieValue}; path=/; max-age=31536000${securePart}`;
+
+    // For localhost/development without HTTPS
+    if (!isSecure) {
+      document.cookie = `googtrans=${cookieValue}; path=/`;
+    }
+
+    setCurrentLang(newLang);
+
+    // Wait a bit for cookie to be set, then trigger translation
     setTimeout(() => {
       const selectElement = document.querySelector('.goog-te-combo') as HTMLSelectElement;
       if (selectElement) {
         selectElement.value = newLang;
-        selectElement.dispatchEvent(new Event('change'));
+        const event = new Event('change', { bubbles: true });
+        selectElement.dispatchEvent(event);
       }
+
+      // Reload page to apply translation after a short delay
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
     }, 100);
-
-    setCurrentLang(newLang);
-
-    // Reload page to apply translation
-    window.location.reload();
   };
 
   return (
