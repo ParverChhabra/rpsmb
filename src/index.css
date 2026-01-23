@@ -200,4 +200,36 @@
   .pinned-badge {
     @apply bg-accent/10 text-accent-foreground border border-accent/30 px-3 py-1 text-xs font-medium rounded-full;
   }
+
+  /* Google Translate styling - hide banner and customize appearance */
+  .goog-te-banner-frame {
+    display: none !important;
+  }
+
+  body {
+    top: 0 !important;
+  }
+
+  .goog-te-gadget {
+    font-family: inherit !important;
+  }
+
+  .goog-te-gadget-simple {
+    background-color: transparent !important;
+    border: none !important;
+    font-size: 0.875rem !important;
+    color: hsl(var(--cream)) !important;
+  }
+
+  .goog-te-gadget-icon {
+    display: none !important;
+  }
+
+  .goog-te-menu-value span {
+    color: hsl(var(--cream)) !important;
+  }
+
+  #google_translate_element {
+    display: none;
+  }
 }

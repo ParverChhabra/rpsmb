@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { NavLink } from './NavLink';
+import { LanguageToggle } from './LanguageToggle';
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -52,8 +53,8 @@ export const Navbar = () => {
           <ul className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <li key={link.label}>
-                <NavLink 
-                  to={link.href} 
+                <NavLink
+                  to={link.href}
                   className="nav-link text-sm font-medium"
                   activeClassName="text-gold after:w-full"
                 >
@@ -61,6 +62,9 @@ export const Navbar = () => {
                 </NavLink>
               </li>
             ))}
+            <li>
+              <LanguageToggle />
+            </li>
             <li>
               <NavLink to="/admissions" className="btn-premium text-sm px-6 py-2">
                 Admissions
@@ -93,6 +97,9 @@ export const Navbar = () => {
                   </NavLink>
                 </li>
               ))}
+              <li className="px-6 py-3">
+                <LanguageToggle />
+              </li>
               <li className="px-6 py-3">
                 <NavLink to="/admissions" className="btn-premium inline-block text-sm px-6 py-2" onClick={() => setIsMobileMenuOpen(false)}>
                   Admissions
